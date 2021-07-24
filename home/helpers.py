@@ -35,14 +35,4 @@ def generate_fake_data():
             print(student_obj)
 
 
-        
-Student uuid
-134F-3497GH-BJ77
-id 1 , 2 , 3 , 4 
-
-depart 1 , 2 , 3 , 4
-
-Inven
-1 , 2 , 3 , 4, 5
-
-primary_key = 
+   

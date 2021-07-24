@@ -1,4 +1,5 @@
 from datetime import date
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
 from .helpers import *
@@ -25,15 +26,4 @@ from .helpers import *
 
 
 def home(request):
-    students = Student.objects.all().select_related('department')
-    
-    for student in students:
-        print(student.department)
-
-
-    #print(students)
-
-    # return JsonResponse({'status' : 200} )
-
-
-    s = Student.objects.create(name ='ab')
+    return render(request , 'home.html')
