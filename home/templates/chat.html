@@ -1,0 +1,68 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    
+    <div class="container col-md-6 mt-5 pt-5">
+        <label>Enter Message</label>
+        <input type="text" id="text_box" placeholder="Enter message" class="form-control">
+        <button class="btn btn-primary mt-4" onclick="sendMessage()">Send</button>
+    
+        <ul id="messages">
+           
+        </ul>
+    
+    </div>
+
+
+    <script>
+        var url = 'ws://127.0.0.1:8000/ws/{{room_name}}/'
+        var socket = new WebSocket(url)
+
+        socket.onopen = function(e){
+            console.log('Connected')
+        }
+        socket.onmessage = function(e){
+            var data = JSON.parse(e.data)
+            console.log(data)
+            if(data.answer && data.answer.sender != getName()){
+            updateUI(data.answer.sender , data.answer.message)
+            } 
+        }
+
+        socket.onclose = function(e){
+            console.log('disconnect')
+        }
+
+        function updateUI(name , message){
+            var element = document.getElementById('messages')
+            element.innerHTML += `<li>${name} : ${message}</li>`
+        }
+
+        function getName(){
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('name');
+        }
+
+        function sendMessage(){
+            var element = document.getElementById('text_box').value
+            socket.send(JSON.stringify({'message' : element,'sender' : getName()}))
+            document.getElementById('text_box').value = ''
+            swal("Good job!", "Your message was send!", "success");
+        }
+
+    </script>
+
+
+</body>
+</html>

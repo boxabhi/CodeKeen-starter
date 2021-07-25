@@ -21,6 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('' , home),
+    path('chat/<room_name>/' , chat),
     path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
 ]

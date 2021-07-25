@@ -18,7 +18,7 @@ application = get_asgi_application()
 
 ws_patterns = [
 
-    path('ws/django/' , NewConsumer )
+    path('ws/<room_name>/' , NewConsumer )
     
 ]
 
