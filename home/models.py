@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.fields import CharField
+from django.db.models.fields.related import ForeignKey
 
 
 class Department(models.Model):
@@ -26,4 +28,12 @@ class Student(models.Model):
     def __str__(self):
         return self.student_email
 
+
+
+# class Room(models.Model):
+#     room = CharField
+
+# class Chat():
+#     room = ForeignKey
+#     sender message = 
 

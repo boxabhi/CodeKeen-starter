@@ -25,6 +25,7 @@ class NewConsumer(WebsocketConsumer):
                 'payload' : text_data
             }
         )
+    
 
         #self.send(text_data = json.dumps({'answer' : text_data }))
 
